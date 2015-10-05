@@ -28,3 +28,4 @@ class Move():
         cls.lot.context['locations'] = [Eval('from_location')]
         if 'from_location' not in cls.lot.depends:
             cls.lot.depends.append('from_location')
+        cls.lot.loading = 'lazy'
