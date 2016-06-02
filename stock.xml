@@ -3,6 +3,7 @@
      copyright notices and license terms. -->
 <tryton>
     <data>
+        <!-- stock.lot -->
         <record model="ir.ui.view" id="lot_view_list_qty">
             <field name="model">stock.lot</field>
             <field name="type">tree</field>
@@ -10,6 +11,14 @@
             <field name="name">lot_list_qty</field>
         </record>
 
+        <!-- stock.move -->
+        <record model="ir.ui.view" id="move_view_form">
+            <field name="model">stock.move</field>
+            <field name="inherit" ref="stock.move_view_form"/>
+            <field name="name">move_form</field>
+        </record>
+
+        <!-- stock.lots_by_location.start -->
         <record model="ir.ui.view" id="lots_by_location_start_view_form">
             <field name="model">stock.lots_by_location.start</field>
             <field name="type">form</field>
