@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -8,7 +8,7 @@ msgstr "A data"
 
 msgctxt "field:stock.lots_by_location.start,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "help:stock.lots_by_location.start,forecast_date:"
 msgid ""
