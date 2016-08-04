@@ -29,3 +29,7 @@ class Move():
         if 'from_location' not in cls.lot.depends:
             cls.lot.depends.append('from_location')
         cls.lot.loading = 'lazy'
+
+        if 'product' not in cls.lot.depends:
+            cls.lot.depends.append('product')
+        cls.lot.states['readonly'] = ~Eval('product') | ~Eval('from_location')
