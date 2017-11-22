@@ -32,4 +32,4 @@ class Move():
 
         if 'product' not in cls.lot.depends:
             cls.lot.depends.append('product')
-        cls.lot.states['readonly'] = ~Eval('product') | ~Eval('from_location')
+        cls.lot.states['readonly'] |= ~Eval('product') | ~Eval('from_location')
