@@ -6,12 +6,13 @@ import trytond.tests.test_tryton
 from trytond.tests.test_tryton import ModuleTestCase
 
 
-class TestCase(ModuleTestCase):
+class StockLotQuantityTestCase(ModuleTestCase):
     'Test module'
     module = 'stock_lot_quantity'
 
 
 def suite():
     suite = trytond.tests.test_tryton.suite()
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestCase))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
+        StockLotQuantityTestCase))
     return suite

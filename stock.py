@@ -1,15 +1,15 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from trytond.pool import Pool, PoolMeta
+from trytond.pool import PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
 
 __all__ = ['Lot', 'Move']
-__metaclass__ = PoolMeta
 
 
 class Lot:
     __name__ = 'stock.lot'
+    __metaclass__ = PoolMeta
 
     @classmethod
     def get_quantity(cls, lots, name):
@@ -21,6 +21,7 @@ class Lot:
 
 class Move():
     __name__ = 'stock.move'
+    __metaclass__ = PoolMeta
 
     @classmethod
     def __setup__(cls):
