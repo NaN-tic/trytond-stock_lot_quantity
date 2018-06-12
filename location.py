@@ -36,24 +36,13 @@ class LotsByLocation(Wizard):
     def do_open(self, action):
         pool = Pool()
         Location = pool.get('stock.location')
-        Lang = pool.get('ir.lang')
 
         context = {}
         context['locations'] = Transaction().context.get('active_ids')
         date = self.start.forecast_date or datetime.date.max
         context['stock_date_end'] = Date(date.year, date.month, date.day)
         action['pyson_context'] = PYSONEncoder().encode(context)
-
         locations = Location.browse(context['locations'])
-
-        for code in [Transaction().language, 'en_US']:
-            langs = Lang.search([
-                    ('code', '=', code),
-                    ])
-            if langs:
-                break
-        lang = langs[0]
-        date = Lang.strftime(date, lang.code, lang.date)
 
         action['name'] += ' - (%s) @ %s' % (
             ','.join(l.name for l in locations), date)
