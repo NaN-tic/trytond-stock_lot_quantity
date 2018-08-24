@@ -7,9 +7,8 @@ from trytond.transaction import Transaction
 __all__ = ['Lot', 'Move']
 
 
-class Lot:
+class Lot(metaclass=PoolMeta):
     __name__ = 'stock.lot'
-    __metaclass__ = PoolMeta
 
     @classmethod
     def get_quantity(cls, lots, name):
@@ -19,9 +18,8 @@ class Lot:
         return super(Lot, cls).get_quantity(lots, name)
 
 
-class Move():
+class Move(metaclass=PoolMeta):
     __name__ = 'stock.move'
-    __metaclass__ = PoolMeta
 
     @classmethod
     def __setup__(cls):
