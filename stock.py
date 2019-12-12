@@ -24,7 +24,7 @@ class Move(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super(Move, cls).__setup__()
-        cls.lot.context['locations'] = [Eval('from_location')]
+        cls.lot.context['locations'] = If(Eval('from_location'), [Eval('from_location')], [])
         if 'from_location' not in cls.lot.depends:
             cls.lot.depends.append('from_location')
         cls.lot.loading = 'lazy'
