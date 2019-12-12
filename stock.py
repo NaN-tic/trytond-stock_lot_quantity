@@ -1,6 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from trytond.pool import PoolMeta
+from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 
@@ -13,8 +13,27 @@ class Lot(metaclass=PoolMeta):
     @classmethod
     def get_quantity(cls, lots, name):
         "Return null instead of 0.0 if no locations in context"
+        pool = Pool()
+        User = pool.get('res.user')
+        Config = pool.get('stock.configuration')
+        Location = pool.get('stock.location')
         if not Transaction().context.get('locations'):
-            return {}.fromkeys([l.id for l in lots], None)
+            user = User(Transaction().user)
+            config = Config(1)
+            warehouses = None
+            if user.warehouse:
+                warehouses = [user.warehouse]
+            elif config.warehouse:
+                warehouses = [config.warehouse]
+            else:
+
+                warehouses = Location.search(['type', '=', 'warehouse'])
+            if not warehouses:
+                return {}.fromkeys([l.id for l in lots], None)
+
+            locations = [w.storage_location.id for w in warehouses]
+            Transaction().set_context(locations=locations)
+
         return super(Lot, cls).get_quantity(lots, name)
 
 
