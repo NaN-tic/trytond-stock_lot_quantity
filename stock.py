@@ -1,7 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 from trytond.pool import PoolMeta
-from trytond.pyson import Eval
+from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 
 __all__ = ['Lot', 'Move']
@@ -24,7 +24,8 @@ class Move(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super(Move, cls).__setup__()
-        cls.lot.context['locations'] = If(Eval('from_location'), [Eval('from_location')], [])
+        cls.lot.context['locations'] = If(Eval('from_location'),
+            [Eval('from_location')], [])
         if 'from_location' not in cls.lot.depends:
             cls.lot.depends.append('from_location')
         cls.lot.loading = 'lazy'
