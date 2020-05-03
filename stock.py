@@ -4,8 +4,6 @@ from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 
-__all__ = ['Lot', 'Move']
-
 
 class Lot(metaclass=PoolMeta):
     __name__ = 'stock.lot'
@@ -15,25 +13,19 @@ class Lot(metaclass=PoolMeta):
         "Return null instead of 0.0 if no locations in context"
         pool = Pool()
         User = pool.get('res.user')
-        Config = pool.get('stock.configuration')
         Location = pool.get('stock.location')
         if not Transaction().context.get('locations'):
             user = User(Transaction().user)
-            config = Config(1)
             warehouses = None
             if user.warehouse:
                 warehouses = [user.warehouse]
-            elif config.warehouse:
-                warehouses = [config.warehouse]
             else:
-
                 warehouses = Location.search(['type', '=', 'warehouse'])
             if not warehouses:
                 return {}.fromkeys([l.id for l in lots], None)
 
             locations = [w.storage_location.id for w in warehouses]
             Transaction().set_context(locations=locations)
-
         return super(Lot, cls).get_quantity(lots, name)
 
 
