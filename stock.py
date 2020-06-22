@@ -4,8 +4,6 @@ from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Eval, If
 from trytond.transaction import Transaction
 
-__all__ = ['Lot', 'Move']
-
 
 class Lot(metaclass=PoolMeta):
     __name__ = 'stock.lot'
@@ -13,15 +11,11 @@ class Lot(metaclass=PoolMeta):
     def _get_warehouses():
         pool = Pool()
         User = pool.get('res.user')
-        Config = pool.get('stock.configuration')
         Location = pool.get('stock.location')
         user = User(Transaction().user)
-        config = Config(1)
         warehouses = None
         if user.warehouse:
             warehouses = [user.warehouse]
-        elif config.warehouse:
-            warehouses = [config.warehouse]
         else:
             warehouses = Location.search(['type', '=', 'warehouse'])
 
