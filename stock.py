@@ -38,9 +38,9 @@ class Move(metaclass=PoolMeta):
         cls.lot.context['locations'] = If(Eval('from_location'),
             [Eval('from_location')], [])
         if 'from_location' not in cls.lot.depends:
-            cls.lot.depends.append('from_location')
+            cls.lot.depends.add('from_location')
         cls.lot.loading = 'lazy'
 
         if 'product' not in cls.lot.depends:
-            cls.lot.depends.append('product')
+            cls.lot.depends.add('product')
         cls.lot.states['readonly'] |= ~Eval('product') | ~Eval('from_location')
